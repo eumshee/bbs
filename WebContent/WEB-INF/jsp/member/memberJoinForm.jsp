@@ -6,6 +6,11 @@
 	$(function() {
 		// 서블릿 호출
 		$('#idCheck').click(function() {
+			if($('#memberId').val()=="") {
+				alert('아이디를 입력하세요!');
+				$('#memberId').focus();
+				return;
+			}
 			$.ajax({
 				url: 'ajaxMemberIdCheck', 
 				data: {id: $('#memberId').val()},
@@ -19,6 +24,7 @@
 					} else {
 						alert('사용가능한 아이디입니다.');
 						$('#idCheck').val('checked');
+						$('#memberId').prop('readonly', true);
 						$('#memberPwd').focus();
 					}
 				},
