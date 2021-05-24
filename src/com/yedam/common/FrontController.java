@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.member.web.MemberJoin;
+import com.yedam.member.web.MemberJoinForm;
+
 @SuppressWarnings("serial")
 public class FrontController extends HttpServlet {
 	private HashMap<String, DbCommand> map = new HashMap<>();
@@ -18,6 +21,8 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// 요청페이지 - 실행컨트롤
 		map.put("/main.do", new MainPage());
+		map.put("/memberJoinForm.do", new MemberJoinForm());
+		map.put("/memberJoin.do", new MemberJoin());
 	}
 
 	@Override
