@@ -44,7 +44,8 @@
 		function formSearch() {
 			let search = document.getElementById("search").value;
 			
-			frmSearch.text.value=search;
+			frmSearch.title.value=search;
+			frmSearch.content.value=search;
 			frm.submit();
 		}
 		
@@ -60,7 +61,8 @@
 			<input type="hidden" id="id" name="id">
 		</form>
 		<form id="frmSearch" action="noticeSearch.do" method="post">
-			<input type="hidden" id="text" name="text">
+			<input type="hidden" id="title" name="title">
+			<input type="hidden" id="content" name="content">
 		</form>
 		<hr>
 		<div style="width: 80%">
@@ -88,20 +90,15 @@
 					<button type="button" onclick="location.href='noticeForm.do'">등록</button>
 				</c:if>
 			</div>
-			<div class="pagination">
-			    <a href="javascript:goPage(${paging.firstPageNo})" class="first">처음 페이지</a>
-			    <a href="javascript:goPage(${paging.prevPageNo})" class="prev">이전 페이지</a>
-			    <span>
-			        <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
-			            <c:choose>
-			                <c:when test="${i eq paging.pageNo}"><a href="javascript:goPage(${i})" class="active">${i}</a></c:when>
-			                <c:otherwise><a href="javascript:goPage(${i})">${i}</a></c:otherwise>
-			            </c:choose>
-			        </c:forEach>
-			    </span>
-			    <a href="javascript:goPage(${paging.nextPageNo})" class="next">다음 페이지</a>
-			    <a href="javascript:goPage(${paging.finalPageNo})" class="last">마지막 페이지</a>
-			</div>
+			<jsp:include page="../common/paging.jsp" flush="true">
+			    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+			    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+			    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+			    <jsp:param name="pageNo" value="${paging.pageNo}" />
+			    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+			    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+			    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+			</jsp:include>
 		</div>
 	</div>
 </body>

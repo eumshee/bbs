@@ -16,6 +16,7 @@ import com.yedam.member.web.MemberLogin;
 import com.yedam.member.web.MemberLoginForm;
 import com.yedam.member.web.MemberLoginOut;
 import com.yedam.notice.web.Notice;
+import com.yedam.notice.web.NoticeDelete;
 import com.yedam.notice.web.NoticeForm;
 import com.yedam.notice.web.NoticeInsert;
 import com.yedam.notice.web.NoticeList;
@@ -45,6 +46,7 @@ public class FrontController extends HttpServlet {
 		map.put("/noticeForm.do", new NoticeForm());
 		map.put("/noticeInsert.do", new NoticeInsert());
 		map.put("/noticeSearch.do", new NoticeSearch());
+		map.put("/noticeDelete.do", new NoticeDelete());
 		
 	}
 

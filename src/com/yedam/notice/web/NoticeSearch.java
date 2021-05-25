@@ -15,17 +15,13 @@ public class NoticeSearch implements DbCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-
-		NoticeVO vo = new NoticeVO();
-		vo.setTitle(title);
-		vo.setContent(content);
 		
 		NoticeServiceImpl service = new NoticeServiceImpl();
-		List<NoticeVO> list = service.noticeSearch(vo);
+		List<NoticeVO> list = service.noticeSearch(title, content);
 		
 		request.setAttribute("noticeList", list);
 		
-		return "/noticeList.do";
+		return "notice/noticeSearchList.tiles";
 	}
 
 }

@@ -111,19 +111,18 @@ public class NoticeServiceImpl extends DAO implements NoticeService {
 		return rvo;
 	}
 	
-	public List<NoticeVO> noticeSearch(NoticeVO vo) throws NumberFormatException {
+	public List<NoticeVO> noticeSearch(String title, String content){
 		String sql = "select * from notice "
 				+ "where title like ? "
 				+ "or content like ?";
 		List<NoticeVO> list = new ArrayList<NoticeVO>();
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, "'%"+vo.getTitle()+"%'");
-			psmt.setString(2, "'%"+vo.getContent()+"%'");
+			psmt.setString(1, "%"+title+"%");
+			psmt.setString(2, "%"+content+"%");
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				rvo = new NoticeVO();
-				hitCount(vo.getId()); // 조회수 증가
 				rvo.setId(rs.getInt("id"));
 				rvo.setHit(rs.getInt("hit"));
 				rvo.setTitle(rs.getString("title"));
@@ -131,7 +130,7 @@ public class NoticeServiceImpl extends DAO implements NoticeService {
 				rvo.setRegDate(rs.getDate("reg_date"));
 				list.add(rvo);
 			}
-		} catch (NumberFormatException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close();
