@@ -14,19 +14,26 @@ import com.yedam.member.web.MemberJoin;
 import com.yedam.member.web.MemberJoinForm;
 import com.yedam.member.web.MemberLogin;
 import com.yedam.member.web.MemberLoginForm;
+import com.yedam.member.web.MemberLoginOut;
+import com.yedam.notice.web.NoticeList;
 
 @SuppressWarnings("serial")
 public class FrontController extends HttpServlet {
 	private HashMap<String, DbCommand> map = new HashMap<>();
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// 요청페이지 - 실행컨트롤
+	public void init(ServletConfig config) throws ServletException { // 요청페이지 - 실행컨트롤
+		// 회원
 		map.put("/main.do", new MainPage());
 		map.put("/memberJoinForm.do", new MemberJoinForm());
 		map.put("/memberJoin.do", new MemberJoin());
 		map.put("/memberLoginForm.do", new MemberLoginForm());
 		map.put("/memberLogin.do", new MemberLogin());
+		map.put("/memberLoginOut.do", new MemberLoginOut());
+		
+		// 공지사항
+		map.put("/noticeList.do", new NoticeList());
+		
 	}
 
 	@Override

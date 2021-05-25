@@ -2,6 +2,7 @@ package com.yedam.member.serviceImpl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.yedam.common.DAO;
@@ -11,6 +12,7 @@ import com.yedam.member.vo.MemberVO;
 public class MemberServiceImpl extends DAO implements MemberService {
 	PreparedStatement psmt;
 	ResultSet rs;
+	MemberVO rvo = null;
 
 	// id 중복체크 메소드
 	// 중복이면 true, 아니면 false.
@@ -35,7 +37,6 @@ public class MemberServiceImpl extends DAO implements MemberService {
 	// id, passwd를 체크해주는 메소드
 	public MemberVO loginCheck(MemberVO vo) {
 		String sql = "select * from member where id=? and passwd=?";
-		MemberVO rvo = null;
 //		boolean exist=false;
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -76,7 +77,25 @@ public class MemberServiceImpl extends DAO implements MemberService {
 
 	@Override
 	public List<MemberVO> selectMemberList() {
-		return null;
+		String sql = "select * from member order by 1";
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				rvo = new MemberVO();
+				rvo.setId(rs.getString("id"));
+				rvo.setPasswd(rs.getString("passwd"));
+				rvo.setName(rs.getString("name"));
+				rvo.setAddress(rs.getString("address"));
+				list.add(rvo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 
 	@Override
