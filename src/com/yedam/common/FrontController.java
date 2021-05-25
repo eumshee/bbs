@@ -15,7 +15,9 @@ import com.yedam.member.web.MemberJoinForm;
 import com.yedam.member.web.MemberLogin;
 import com.yedam.member.web.MemberLoginForm;
 import com.yedam.member.web.MemberLoginOut;
+import com.yedam.notice.web.Notice;
 import com.yedam.notice.web.NoticeList;
+import com.yedam.notice.web.NoticeUpdate;
 
 @SuppressWarnings("serial")
 public class FrontController extends HttpServlet {
@@ -33,6 +35,8 @@ public class FrontController extends HttpServlet {
 		
 		// 공지사항
 		map.put("/noticeList.do", new NoticeList());
+		map.put("/notice.do", new Notice());
+		map.put("/noticeUpdate.do", new NoticeUpdate());
 		
 	}
 
