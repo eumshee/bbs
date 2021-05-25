@@ -34,6 +34,7 @@ public class MemberLogin implements DbCommand {
 		} else {
 			// 로그인처리 --> memberLoginSuccess.jsp
 			session.setAttribute("id", rvo.getId());// 세션유지하는동안
+			session.setAttribute("member", vo);
 			request.setAttribute("vo", rvo);		// 해당 페이지에서만
 			
 			path = "member/memberLoginSuccess.tiles";

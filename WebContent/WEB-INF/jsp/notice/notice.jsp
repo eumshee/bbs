@@ -55,6 +55,12 @@
 				<c:if test="${id eq 'admin' }">
 					<button type="button" onclick="noticeUpdate()">수정</button>
 				</c:if>
+				<c:if test="${id ne 'admin' }">
+					<script>
+						$('#ctitle').prop('readonly', true);
+						$('#ccontent').prop('readonly', true);
+					</script>
+				</c:if>
 			</div>
 	</div>
 </div>

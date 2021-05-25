@@ -30,7 +30,39 @@ public class NoticeServiceImpl extends DAO implements NoticeService {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public List<NoticeVO> noticeListPaging(int page) {
+		String sql = "select b.*\r\n"
+				+ "from(select rownum rn, a.*\r\n"//
+				+ "        from (select * from notice n order by n.id ) a\r\n"
+				+ ") b\r\n"
+				+ "where b.rn between ? and ?";
+		int firstCnt, lastCnt = 0;
+		firstCnt = (page - 1) * 10 + 1; // 1, 11
+		lastCnt = (page * 10);			// 10, 20
+		List<NoticeVO> list = new ArrayList<NoticeVO>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, firstCnt);
+			psmt.setInt(2, lastCnt);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				rvo = new NoticeVO();
+				rvo.setId(rs.getInt("id"));
+				rvo.setTitle(rs.getString("title"));
+				rvo.setContent(rs.getString("content"));
+				rvo.setRegDate(rs.getDate("reg_date"));
+				rvo.setHit(rs.getInt("hit"));
+				list.add(rvo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 	@Override
 	public List<NoticeVO> noticeSelectList() {
 		String sql = "select * from notice order by 1";
@@ -77,6 +109,34 @@ public class NoticeServiceImpl extends DAO implements NoticeService {
 			close();
 		}
 		return rvo;
+	}
+	
+	public List<NoticeVO> noticeSearch(NoticeVO vo) throws NumberFormatException {
+		String sql = "select * from notice "
+				+ "where title like ? "
+				+ "or content like ?";
+		List<NoticeVO> list = new ArrayList<NoticeVO>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, "'%"+vo.getTitle()+"%'");
+			psmt.setString(2, "'%"+vo.getContent()+"%'");
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				rvo = new NoticeVO();
+				hitCount(vo.getId()); // 조회수 증가
+				rvo.setId(rs.getInt("id"));
+				rvo.setHit(rs.getInt("hit"));
+				rvo.setTitle(rs.getString("title"));
+				rvo.setContent(rs.getString("content"));
+				rvo.setRegDate(rs.getDate("reg_date"));
+				list.add(rvo);
+			}
+		} catch (NumberFormatException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 
 	@Override

@@ -14,6 +14,26 @@
 			text-align: center;
 			padding: 10px;
 		}
+		.pagination {
+		  display: inline-block;
+		}
+		
+		.pagination a {
+		  color: black;
+		  float: left;
+		  padding: 8px 16px;
+		  text-decoration: none;
+		  transition: background-color .3s;
+		  border: 1px solid #ddd;
+		}
+		
+		.pagination a.active {
+		  background-color: #4CAF50;
+		  color: white;
+		  border: 1px solid #4CAF50;
+		}
+		
+		.pagination a:hover:not(.active) {background-color: #ddd;}
 	</style>
 	<script>
 		function formSubmit(id) {
@@ -24,21 +44,23 @@
 		function formSearch() {
 			let search = document.getElementById("search").value;
 			
-			frmSearch.title.value=search;
-			frmSearch.content.value=search;
+			frmSearch.text.value=search;
 			frm.submit();
+		}
+		
+		function goPage(page) {
+			location.href="noticeListPaging.do?page="+page;
 		}
 	</script>
 </head>
 <body>
 	<div align="center">
-		<h1>공지사항 리스트</h1>
+		<h1>공지사항 리스트(Paging)</h1>
 		<form id="frm" action="notice.do" method="post">
 			<input type="hidden" id="id" name="id">
 		</form>
 		<form id="frmSearch" action="noticeSearch.do" method="post">
-			<input type="hidden" id="title" name="title">
-			<input type="hidden" id="content" name="content">
+			<input type="hidden" id="text" name="text">
 		</form>
 		<hr>
 		<div style="width: 80%">
@@ -55,11 +77,6 @@
 						<td width="200">${vo.title }</td>
 						<td width="150">${vo.regDate }</td>
 						<td width="100">${vo.hit }</td>
-						<c:if test="${id eq 'admin' }">
-							<td>
-								<button type="button" onclick="noticeDelect()">삭제</button>							
-							</td>
-						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
@@ -70,6 +87,20 @@
 				<c:if test="${id eq 'admin' }">
 					<button type="button" onclick="location.href='noticeForm.do'">등록</button>
 				</c:if>
+			</div>
+			<div class="pagination">
+			    <a href="javascript:goPage(${paging.firstPageNo})" class="first">처음 페이지</a>
+			    <a href="javascript:goPage(${paging.prevPageNo})" class="prev">이전 페이지</a>
+			    <span>
+			        <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+			            <c:choose>
+			                <c:when test="${i eq paging.pageNo}"><a href="javascript:goPage(${i})" class="active">${i}</a></c:when>
+			                <c:otherwise><a href="javascript:goPage(${i})">${i}</a></c:otherwise>
+			            </c:choose>
+			        </c:forEach>
+			    </span>
+			    <a href="javascript:goPage(${paging.nextPageNo})" class="next">다음 페이지</a>
+			    <a href="javascript:goPage(${paging.finalPageNo})" class="last">마지막 페이지</a>
 			</div>
 		</div>
 	</div>
