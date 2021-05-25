@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.member.web.MemberJoin;
 import com.yedam.member.web.MemberJoinForm;
+import com.yedam.member.web.MemberLogin;
+import com.yedam.member.web.MemberLoginForm;
 
 @SuppressWarnings("serial")
 public class FrontController extends HttpServlet {
@@ -23,6 +25,8 @@ public class FrontController extends HttpServlet {
 		map.put("/main.do", new MainPage());
 		map.put("/memberJoinForm.do", new MemberJoinForm());
 		map.put("/memberJoin.do", new MemberJoin());
+		map.put("/memberLoginForm.do", new MemberLoginForm());
+		map.put("/memberLogin.do", new MemberLogin());
 	}
 
 	@Override

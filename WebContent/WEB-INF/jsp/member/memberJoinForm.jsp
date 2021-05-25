@@ -64,7 +64,8 @@
 <div align="center">
 	<div>
 		<h1>회원가입</h1>
-	</div>		
+	</div>	
+	<hr>	
 	<div>
 		<form id="frm" action="memberJoin.do" method="post">
 			<div>

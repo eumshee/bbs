@@ -32,6 +32,32 @@ public class MemberServiceImpl extends DAO implements MemberService {
 		return exist;
 	}
 	
+	// id, passwd를 체크해주는 메소드
+	public MemberVO loginCheck(MemberVO vo) {
+		String sql = "select * from member where id=? and passwd=?";
+		MemberVO rvo = null;
+//		boolean exist=false;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getPasswd());
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+//				exist=true;
+				rvo = new MemberVO();
+				rvo.setId(rs.getString("id"));
+				rvo.setPasswd(rs.getString("passwd"));
+				rvo.setName(rs.getString("name"));
+				rvo.setAddress(rs.getString("address"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return rvo;
+	}
+	
 	private void close() {
 		try {
 			if (rs != null) {
