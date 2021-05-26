@@ -22,8 +22,7 @@
 		frm.submit();
 	}
 	
-	function formDelete(id) {
-		frmDel.id.value = id;
+	function formDelete() {
 		frmDel.submit();
 	}
 </script>
@@ -35,7 +34,7 @@
 		<input type="hidden" name="content">
 	</form>
 	<form id="frmDel" action="noticeDelete.do" method="post">
-		<input type="hidden" id="id" name="id">
+		<input type="hidden" id="id" name="id" value="${notice.id }">
 	</form>
 	
 	<hr>

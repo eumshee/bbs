@@ -8,23 +8,21 @@ import com.yedam.bulletin.serviceImpl.BulletinServiceImpl;
 import com.yedam.bulletin.vo.BulletinVO;
 import com.yedam.common.DbCommand;
 
-public class Bulletin implements DbCommand {
+public class BulletinDelete implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		// 한건 조회 --> bulletin.jsp (상세화면)
-		String id = request.getParameter("id");		
-
+		String writer = request.getParameter("writer");
+		String id = request.getParameter("id");
+		
 		BulletinVO vo = new BulletinVO();
+		vo.setWriter(writer);
 		vo.setId(Integer.parseInt(id));
 		
 		BulletinService service = new BulletinServiceImpl();
-		BulletinVO rvo = service.bulletinSelect(vo);
+		service.deleteBulletin(vo);
 		
-		// request 단위 공유
-		request.setAttribute("bulletin", rvo);
-		
-		return "bulletin/bulletin.tiles";
+		return "/bulletinList.do";
 	}
 
 }
