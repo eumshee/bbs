@@ -57,6 +57,17 @@
 		function goPage(page) {
 			location.href="noticeListPaging.do?page="+page;
 		}
+		
+		function noticesDelete() {
+			//each로 loop를 돌면서 checkbox의 check된 값을 가져와 담아준다.
+			let chkArr = new Array();
+			$("input:checkbox[name=chk]:checked").each(function(){
+				chkArr.push($(this).val());
+			});
+			frmsDel.chk.value = chkArr;
+			console.log(chkArr);
+			//frmsDel.submit();
+		}
 	</script>
 </head>
 <body>
@@ -70,12 +81,18 @@
 			<input type="hidden" id="content" name="content">
 		</form>
 		<form id="frmDel" action="noticeDelete.do" method="post">
-			<input type="hidden" id="id" name="id">
+			<input type="hidden" id="did" name="did">
+		</form>
+		<form id="frmsDel" action="noticesDelete.do" method="post">
+			<input type="hidden" id="chk" name="chk">
 		</form>
 		<hr>
 		<div style="width: 80%">
 			<table class="table">
 				<tr>
+					<c:if test="${id eq 'admin' }">
+					<th>선택</th>
+					</c:if>
 					<th>순번</th>
 					<th>제목</th>
 					<th>작성일자</th>
@@ -86,6 +103,11 @@
 				</tr>
 				<c:forEach items="${noticeList }" var="vo">
 					<tr>
+						<c:if test="${id eq 'admin' }">
+							<td width="10">
+								<input type="checkbox" id="chk" name="chk" value="${vo.id }">
+							</td>
+						</c:if>
 						<td width="100" onclick="formSubmit(${vo.id})">${vo.id }</td>
 						<td width="200" onclick="formSubmit(${vo.id})">${vo.title }</td>
 						<td width="150" onclick="formSubmit(${vo.id})">${vo.regDate }</td>
@@ -99,12 +121,16 @@
 				</c:forEach>
 			</table>
 			<div>
-				<input type="text" id="search">
+				<c:if test="${id eq 'admin' }">
+					<button type="button" onclick="noticesDelete()">선택삭제</button>
+				</c:if>
+				<input type="text" id="search" size=35>
 				<button type="button" onclick="formSearch()">검색</button>
-				<button type="button" onclick="location.href='main.do'">홈</button>
 				<c:if test="${id eq 'admin' }">
 					<button type="button" onclick="location.href='noticeForm.do'">등록</button>
 				</c:if>
+				<br><br>
+				<button type="button" onclick="location.href='main.do'">홈</button>
 			</div>
 			<br>
 			<jsp:include page="../common/paging.jsp" flush="true">

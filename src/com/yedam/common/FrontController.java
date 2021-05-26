@@ -30,6 +30,7 @@ import com.yedam.notice.web.NoticeList;
 import com.yedam.notice.web.NoticeListPaging;
 import com.yedam.notice.web.NoticeSearch;
 import com.yedam.notice.web.NoticeUpdate;
+import com.yedam.notice.web.NoticesDelete;
 
 @SuppressWarnings("serial")
 public class FrontController extends HttpServlet {
@@ -54,6 +55,7 @@ public class FrontController extends HttpServlet {
 		map.put("/noticeInsert.do", new NoticeInsert());
 		map.put("/noticeSearch.do", new NoticeSearch());
 		map.put("/noticeDelete.do", new NoticeDelete());
+		map.put("/noticesDelete.do", new NoticesDelete());
 		
 		// 게시글
 		map.put("/bulletinList.do", new BulletinList());

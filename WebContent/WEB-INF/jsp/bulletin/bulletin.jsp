@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="//cdn.ckeditor.com/4.16.1/full/ckeditor.js"></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 	<style>
 		table {
 			border-collapse: collapse;
@@ -13,8 +17,8 @@
 			padding: 10px;
 		}
 		#cke_content {margin:auto;}
+		
 	</style>
-	<script src="//cdn.ckeditor.com/4.16.1/full/ckeditor.js"></script>
 	<script>
 		$(function() {
 			CKEDITOR.replace('content', {
@@ -55,7 +59,7 @@
 </head>
 <body>
 <div align="center">
-	<h3>게시글 내용보기</h3>
+	<h3 class="font">게시글 내용보기</h3>
 	<hr>
 	<form id="frmDel" action="bulletinDelete.do" method="post">
 		<input type="hidden" id="writer" name="writer" value="${id }">
@@ -75,7 +79,7 @@
 						<th>작성자</th>
 						<td>${bulletin.writer}</td>
 						<th>조회수</th>
-						<td>${bulletin.hit+1}</td>
+						<td>${bulletin.hit+1 }</td>
 				</tr>
 
 				<tr>
