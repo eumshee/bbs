@@ -15,10 +15,10 @@ public class NoticesDelete implements DbCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String[] chkArr = request.getParameterValues("chk");
-		Enumeration<String> chk = chkArr;
+		//Enumeration<String> chk = chkArr;
 		
-		if(chk != null) {
-			for(int i = 0; i<chk.length ; i++) {
+		if(chkArr != null) {
+			for(int i = 0; i<chkArr.length ; i++) {
 				NoticeVO vo = new NoticeVO();
 				vo.setId(Integer.parseInt(chkArr[i]));
 				NoticeService service = new NoticeServiceImpl();
