@@ -14,22 +14,19 @@ public class NoticesDelete implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		String[] chkArr = request.getParameterValues("chk");
-		//Enumeration<String> chk = chkArr;
-		
-		if(chkArr != null) {
-			for(int i = 0; i<chkArr.length ; i++) {
+		Enumeration<String> chkArr = request.getParameterNames();
+
+		while (chkArr.hasMoreElements()) {
+			String chk = (String) chkArr.nextElement();
+			String[] ch = request.getParameterValues(chk);
+			for (int i = 0; i < ch.length; i++) {
 				NoticeVO vo = new NoticeVO();
-				vo.setId(Integer.parseInt(chkArr[i]));
+				vo.setId(Integer.parseInt(ch[i]));
 				NoticeService service = new NoticeServiceImpl();
 				service.deleteNotice(vo);
-			}			
-		} else {
-			
+			}
 		}
-		
-		
+
 		return "/noticeListPaging.do";
 	}
-
 }
