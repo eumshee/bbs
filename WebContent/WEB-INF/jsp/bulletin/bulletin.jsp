@@ -21,51 +21,44 @@
 		frm.content.value=content;
 		frm.submit();
 	}
-	
-	function formDelete(id) {
-		frmDel.id.value = id;
-		frmDel.submit();
-	}
 </script>
 <div align="center">
-	<h3>공지사항 내용보기</h3>
-	<form id="frm" action="noticeUpdate.do" method="post">
+	<h3>게시글 내용보기</h3>
+	<form id="frm" action="bulletinUpdate.do" method="post">
 		<input type="hidden" name="id">
 		<input type="hidden" name="title">
 		<input type="hidden" name="content">
 	</form>
-	<form id="frmDel" action="noticeDelete.do" method="post">
-		<input type="hidden" id="id" name="id">
-	</form>
-	
 	<hr>
 	<div style="width: 80%;">
 			<table class="table">
 				<tr>
 						<th>순번</th>
-						<td id="cid">${notice.id}</td>
+						<td id="cid">${bulletin.id}</td>
 						<th>작성일자</th>
-						<td>${notice.regDate}</td>
+						<td>${bulletin.regDate}</td>
+						<th>작성자</th>
+						<td>${bulletin.writer}</td>
 						<th>조회수</th>
-						<td>${notice.hit+1}</td>
+						<td>${bulletin.hit+1}</td>
 				</tr>
 
 				<tr>
 						<th>제목</th>
-						<td colspan="5"><input id="ctitle" type="text" value="${notice.title}"></td>
+						<td colspan="7"><input id="ctitle" type="text" value="${bulletin.title}" size="88"></td>
 				</tr>
 				<tr>
 						<th>내용</th>
-						<td colspan="5"><textarea id="ccontent" rows="6" cols="90">${notice.content}</textarea></td>
+						<td colspan="7"><textarea id="ccontent" rows="6" cols="90">${bulletin.content}</textarea></td>
 				</tr>
 			</table>
 			<div align="right">
-				<button type="button" onclick="location.href='noticeListPaging.do'">목록보기</button>
-				<c:if test="${id eq 'admin' }">
-					<button type="button" onclick="noticeUpdate()">수정</button>
-					<button type="button" onclick="noticeDelete()">삭제</button>
+				<button type="button" onclick="location.href='bulletinList.do'">목록보기</button>
+				<c:if test="${!empty id}">
+					<button type="button" onclick="bulletinUpdate()">수정</button>
+					<button type="button" onclick="bulletinDelete()">삭제</button>
 				</c:if>
-				<c:if test="${id ne 'admin' }">
+				<c:if test="${empty id}">
 					<script>
 						$('#ctitle').prop('readonly', true);
 						$('#ccontent').prop('readonly', true);

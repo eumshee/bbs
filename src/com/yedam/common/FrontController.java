@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.bulletin.web.Bulletin;
+import com.yedam.bulletin.web.BulletinForm;
+import com.yedam.bulletin.web.BulletinList;
 import com.yedam.member.web.MemberJoin;
 import com.yedam.member.web.MemberJoinForm;
 import com.yedam.member.web.MemberLogin;
@@ -47,6 +50,11 @@ public class FrontController extends HttpServlet {
 		map.put("/noticeInsert.do", new NoticeInsert());
 		map.put("/noticeSearch.do", new NoticeSearch());
 		map.put("/noticeDelete.do", new NoticeDelete());
+		
+		// 게시글
+		map.put("/bulletinList.do", new BulletinList());
+		map.put("/bulletinForm.do", new BulletinForm());
+		map.put("/bulletin.do", new Bulletin());
 		
 	}
 

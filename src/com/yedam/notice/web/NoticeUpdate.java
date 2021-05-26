@@ -28,7 +28,7 @@ public class NoticeUpdate implements DbCommand {
 		NoticeService service = new NoticeServiceImpl();
 		service.updateNotice(vo);
 		
-		return "/noticeList.do";
+		return "/noticeListPaging.do";
 	}
 
 }

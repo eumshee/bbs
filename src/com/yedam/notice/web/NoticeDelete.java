@@ -20,7 +20,7 @@ public class NoticeDelete implements DbCommand {
 		NoticeService service = new NoticeServiceImpl();
 		service.deleteNotice(vo);
 		
-		return "/noticeList.do";
+		return "/noticeListPaging.do";
 	}
 
 }

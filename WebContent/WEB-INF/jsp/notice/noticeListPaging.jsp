@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>notice/noticeList.jsp</title>
+	<title>notice/noticeList.jsp(paging)</title>
 	<style>
 		table {
 			border-collapse: collapse;
@@ -46,9 +46,14 @@
 			
 			frmSearch.title.value=search;
 			frmSearch.content.value=search;
-			frm.submit();
+			frmSearch.submit();
 		}
 		
+		function formDelete(id) {
+			frmDel.id.value = id;
+			frmDel.submit();
+		}
+			
 		function goPage(page) {
 			location.href="noticeListPaging.do?page="+page;
 		}
@@ -56,13 +61,16 @@
 </head>
 <body>
 	<div align="center">
-		<h1>공지사항 리스트(Paging)</h1>
+		<h1>공지사항 리스트</h1>
 		<form id="frm" action="notice.do" method="post">
 			<input type="hidden" id="id" name="id">
 		</form>
 		<form id="frmSearch" action="noticeSearch.do" method="post">
 			<input type="hidden" id="title" name="title">
 			<input type="hidden" id="content" name="content">
+		</form>
+		<form id="frmDel" action="noticeDelete.do" method="post">
+			<input type="hidden" id="id" name="id">
 		</form>
 		<hr>
 		<div style="width: 80%">
@@ -72,13 +80,21 @@
 					<th>제목</th>
 					<th>작성일자</th>
 					<th>조회수</th>
+					<c:if test="${id eq 'admin' }">
+					<th>기능</th>
+					</c:if>
 				</tr>
 				<c:forEach items="${noticeList }" var="vo">
-					<tr onclick="formSubmit(${vo.id})">
-						<td width="100">${vo.id }</td>
-						<td width="200">${vo.title }</td>
-						<td width="150">${vo.regDate }</td>
-						<td width="100">${vo.hit }</td>
+					<tr>
+						<td width="100" onclick="formSubmit(${vo.id})">${vo.id }</td>
+						<td width="200" onclick="formSubmit(${vo.id})">${vo.title }</td>
+						<td width="150" onclick="formSubmit(${vo.id})">${vo.regDate }</td>
+						<td width="100" onclick="formSubmit(${vo.id})">${vo.hit }</td>
+						<c:if test="${id eq 'admin' }">
+							<td width="50">
+								<button type="button" onclick="formDelete(${vo.id})">삭제</button>							
+							</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
@@ -90,6 +106,7 @@
 					<button type="button" onclick="location.href='noticeForm.do'">등록</button>
 				</c:if>
 			</div>
+			<br>
 			<jsp:include page="../common/paging.jsp" flush="true">
 			    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
 			    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
