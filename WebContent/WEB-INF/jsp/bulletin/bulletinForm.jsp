@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>bulletin/bulletinForm.jsp</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+	<script src="//cdn.ckeditor.com/4.16.1/full/ckeditor.js"></script>
 	<script>
 		$(function() { // 모두 불러온 후.
 			// ckeditor, 업로드 서블릿
@@ -41,7 +41,7 @@
 					<tr>
 						<th width="150"><label for="title">제목</label></th>
 						<td width="300">
-							<input type="text" id="title" name="title">
+							<input type="text" id="title" name="title" size=109>
 						</td>
 					</tr>
 					<tr>

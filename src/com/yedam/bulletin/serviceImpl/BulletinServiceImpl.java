@@ -16,6 +16,40 @@ public class BulletinServiceImpl extends DAO implements BulletinService {
 	BulletinVO rvo = null;
 	int n = 0;
 
+	// 페이징
+	public List<BulletinVO> bulletinListPaging(int page) {
+		String sql = "select b.*\r\n"
+				+ "from(select rownum rn, a.*\r\n"//
+				+ "        from (select * from bulletin n order by n.id ) a\r\n"
+				+ ") b\r\n"
+				+ "where b.rn between ? and ?";
+		int firstCnt, lastCnt = 0;
+		firstCnt = (page - 1) * 10 + 1; // 1, 11
+		lastCnt = (page * 10);			// 10, 20
+		List<BulletinVO> list = new ArrayList<BulletinVO>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, firstCnt);
+			psmt.setInt(2, lastCnt);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				rvo = new BulletinVO();
+				rvo.setId(rs.getInt("id"));
+				rvo.setTitle(rs.getString("title"));
+				rvo.setContent(rs.getString("content"));
+				rvo.setWriter(rs.getString("writer"));
+				rvo.setRegDate(rs.getDate("reg_date"));
+				rvo.setHit(rs.getInt("hit"));
+				list.add(rvo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 	// 전체 리스트
 	@Override
 	public List<BulletinVO> bulletinSelectList() {
@@ -98,39 +132,6 @@ public class BulletinServiceImpl extends DAO implements BulletinService {
 		}
 		return rvo;
 	}
-
-	public List<BulletinVO> bulletinListPaging(int page) {
-		String sql = "select b.*\r\n"
-				+ "from(select rownum rn, a.*\r\n"//
-				+ "        from (select * from bulletin n order by n.id ) a\r\n"
-				+ ") b\r\n"
-				+ "where b.rn between ? and ?";
-		int firstCnt, lastCnt = 0;
-		firstCnt = (page - 1) * 10 + 1; // 1, 11
-		lastCnt = (page * 10);			// 10, 20
-		List<BulletinVO> list = new ArrayList<BulletinVO>();
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, firstCnt);
-			psmt.setInt(2, lastCnt);
-			rs = psmt.executeQuery();
-			while(rs.next()) {
-				rvo = new BulletinVO();
-				rvo.setId(rs.getInt("id"));
-				rvo.setTitle(rs.getString("title"));
-				rvo.setContent(rs.getString("content"));
-				rvo.setWriter(rs.getString("writer"));
-				rvo.setRegDate(rs.getDate("reg_date"));
-				rvo.setHit(rs.getInt("hit"));
-				list.add(rvo);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return list;
-	}
 	
 	// 게시글 입력
 	@Override
@@ -155,6 +156,7 @@ public class BulletinServiceImpl extends DAO implements BulletinService {
 		return n;
 	}
 
+	// 게시글 수정
 	@Override
 	public int updateBulletin(BulletinVO vo) {
 		String sql = "update bulletin set title = ?, content = ? where writer = ? and id = ?";
@@ -178,6 +180,7 @@ public class BulletinServiceImpl extends DAO implements BulletinService {
 		return n;
 	}
 
+	// 게시글 삭제
 	@Override
 	public int deleteBulletin(BulletinVO vo) {
 		String sql = "delete from bulletin where writer = ? and id = ?";

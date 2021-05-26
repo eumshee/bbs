@@ -12,14 +12,39 @@
 			text-align: center;
 			padding: 10px;
 		}
+		#cke_content {margin:auto;}
 	</style>
-	<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+	<script src="//cdn.ckeditor.com/4.16.1/full/ckeditor.js"></script>
 	<script>
 		$(function() {
 			CKEDITOR.replace('content', {
 				filebrowserUploadUrl: '${pageContext.request.contextPath}/fileUpload',
 				height: '600px',
 				width: '800px'
+			});
+		});
+		
+		$('#btnUpdate').click(function(e) {
+			e.preventDefault();
+			console.log(CKEDITOR.instances.content.getData());
+			
+			let id = $('#id').val();
+			let title = $('#title').val();
+			let content = CKEDITOR.instances.content.getData();
+			$.ajax({
+				url: 'ajaxBulletinUpdate',
+				data: {
+					id: id,
+					title: title,
+					content: content
+				},
+				type: 'post',
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(err) {
+					console.error(err);
+				}
 			});
 		});
 		
@@ -56,7 +81,7 @@
 				<tr>
 						<th>제목</th>
 							<c:if test="${id eq bulletin.writer}">
-								<td colspan="7"><input id="title" name="title" type="text" value="${bulletin.title}" size="88"></td>
+								<td colspan="7"><input id="title" name="title" type="text" value="${bulletin.title}" size="109"></td>
 							</c:if>
 							<c:if test="${id ne bulletin.writer}">
 								<td colspan="7">${bulletin.title}</td>
@@ -65,7 +90,7 @@
 				<tr>
 						<th>내용</th>
 							<c:if test="${id eq bulletin.writer}">
-								<td colspan="7"><textarea id="content" name="content" rows="6" cols="90">${bulletin.content}</textarea></td>
+								<td colspan="7"><textarea id="content" name="content" rows="6" cols="90" class="align-center">${bulletin.content}</textarea></td>
 							</c:if>
 							<c:if test="${id ne bulletin.writer}">
 								<td colspan="7">${bulletin.content}</td>
@@ -76,12 +101,6 @@
 				<c:if test="${id eq bulletin.writer}">
 					<button type="submit">수정</button>
 					<button type="button" onclick="bulletinDelete()">삭제</button>
-				</c:if>
-				<c:if test="${empty id}">
-					<script>
-						$('#ctitle').prop('readonly', true);
-						$('#ccontent').prop('readonly', true);
-					</script>
 				</c:if>
 			</div>
 	</div>
