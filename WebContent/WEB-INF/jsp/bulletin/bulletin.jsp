@@ -10,6 +10,7 @@
 		padding: 10px;
 	}
 </style>
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script>
 	function noticeUpdate() {
 		let id = document.getElementById("cid").innerHTML;

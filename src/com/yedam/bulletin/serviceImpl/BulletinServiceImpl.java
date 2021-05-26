@@ -41,6 +41,36 @@ public class BulletinServiceImpl extends DAO implements BulletinService {
 		return list;
 	}
 
+	public List<BulletinVO> bulletinSearch(String title, String content, String writer){
+		String sql = "select * from bulletin "
+				+ "where title like ? "
+				+ "or content like ? "
+				+ "or writer like ?";
+		List<BulletinVO> list = new ArrayList<BulletinVO>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, "%"+title+"%");
+			psmt.setString(2, "%"+content+"%");
+			psmt.setString(3, "%"+writer+"%");
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				rvo = new BulletinVO();
+				rvo.setId(rs.getInt("id"));
+				rvo.setHit(rs.getInt("hit"));
+				rvo.setTitle(rs.getString("title"));
+				rvo.setContent(rs.getString("content"));
+				rvo.setWriter(rs.getString("writer"));
+				rvo.setRegDate(rs.getDate("reg_date"));
+				list.add(rvo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 	@Override
 	public BulletinVO bulletinSelect(BulletinVO vo) {
 		String sql = "select * from bulletin where id=?";

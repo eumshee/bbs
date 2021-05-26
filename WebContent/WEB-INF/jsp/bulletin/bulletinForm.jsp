@@ -18,7 +18,12 @@
 		}); 
 		
 		function formCheck() {
-			
+			if(frm.title.value == "") {
+				alert("제목을 입력하세요.");
+				frm.title.focus();
+				return false;
+			}
+			frm.submit();
 		}
 	</script>
 </head>
@@ -28,10 +33,11 @@
 		<h1>게시글등록</h1>
 	</div>	
 	<hr>	
-	<div>
+	<div style="width: 80%;">
 		<form id="frm" action="bulletinInsert.do" method="post">
+			<input type="hidden" name="id" value="${id }">
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<th width="150"><label for="title">제목</label></th>
 						<td width="300">
