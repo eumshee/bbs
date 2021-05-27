@@ -9,6 +9,44 @@ public class ProductVO {
 	private int likeIt;
 	private String sale;
 	private int salePrice;
+	
+	// cartList
+	private String userId;
+	private int itemQty;
+	private int sum;
+	private int psum;
+
+	public int getPsum() {
+		return psum;
+	}
+
+	public void setPsum(int psum) {
+		this.psum = psum;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getItemQty() {
+		return itemQty;
+	}
+
+	public void setItemQty(int itemQty) {
+		this.itemQty = itemQty;
+	}
 
 	public String getItemCode() {
 		return itemCode;

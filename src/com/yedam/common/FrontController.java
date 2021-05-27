@@ -31,6 +31,8 @@ import com.yedam.notice.web.NoticeListPaging;
 import com.yedam.notice.web.NoticeSearch;
 import com.yedam.notice.web.NoticeUpdate;
 import com.yedam.notice.web.NoticesDelete;
+import com.yedam.product.web.AddCart;
+import com.yedam.product.web.CartList;
 import com.yedam.product.web.ProductList;
 
 @SuppressWarnings("serial")
@@ -70,6 +72,9 @@ public class FrontController extends HttpServlet {
 		
 		// 상품
 		map.put("/productList.do", new ProductList());
+		map.put("/addCart.do", new AddCart());
+		map.put("/cartList.do", new CartList());
+		
 	}
 
 	@Override

@@ -72,14 +72,35 @@
 					</div>
 				</div>
 				<!-- Product actions-->
+				<c:if test="${!empty id }">
 				<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 					<div class="text-center">
-						<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+						<a class="btn btn-outline-dark mt-auto" onclick="addCnt('${vo.itemCode}')">Add to cart</a>
 					</div>
 				</div>
+				</c:if>
 			</div>
 		</div>
 		</c:forEach>
 	</div>
 </div>
 </section>
+
+<script>
+	function addCnt(itemCode) {
+	 //e.preventDefault();
+	 $.ajax({
+		 url: '${pageContext.request.contextPath}/addCart.do',
+		 data: {id: '${id }',
+			 itemCode: itemCode
+		 },
+		 success: function(data) {
+			 console.log(data);
+			 location.href = 'productList.do';
+		 },
+		 error: function(err) {
+			 console.error(err);
+		 }
+	 });
+ }
+</script>
