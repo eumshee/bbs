@@ -8,12 +8,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.6.0/css/animsition.min.css"
-		integrity="sha512-WMC7gu6rcsKhwrVEL6xKXEtRItN/49EjOf3vZI5k6o05KIKRPKrXqVWbxpbwjn9kDdWlTFUhg8kVYhqkthx6XA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.6.0/js/jquery.animsition.min.js"
-		integrity="sha512-zrtSmLMQB7xGl4nJTlebIFmABc8gbEVKndWZbIe5YVFgpPOz+gzisRWox3iiSYGgCdkTEk+QycY3usIYySU0wA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>

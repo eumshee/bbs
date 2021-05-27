@@ -66,7 +66,7 @@
 			});
 			frmsDel.chk.value = chkArr;
 			console.log(chkArr);
-			//frmsDel.submit();
+			frmsDel.submit();
 		}
 	</script>
 </head>

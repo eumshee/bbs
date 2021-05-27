@@ -1,7 +1,5 @@
 package com.yedam.notice.web;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,18 +12,21 @@ public class NoticesDelete implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		Enumeration<String> chkArr = request.getParameterNames();
 
-		while (chkArr.hasMoreElements()) {
-			String chk = (String) chkArr.nextElement();
-			String[] ch = request.getParameterValues(chk);
-			for (int i = 0; i < ch.length; i++) {
+			String[] chk = request.getParameterValues("chkArr");
+			String[] arr=null;
+			for (int i = 0; i < chk.length; i++) {
+		           arr=chk[i].split(",");         
+		    }
+			
+			for(int i = 0; i < arr.length; i++) {
 				NoticeVO vo = new NoticeVO();
-				vo.setId(Integer.parseInt(ch[i]));
+				vo.setId(Integer.parseInt(arr[i]));
+				
 				NoticeService service = new NoticeServiceImpl();
 				service.deleteNotice(vo);
+				System.out.println(Integer.parseInt(arr[i]));
 			}
-		}
 
 		return "/noticeListPaging.do";
 	}
