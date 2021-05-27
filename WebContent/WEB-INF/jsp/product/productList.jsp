@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <section class="py-5">
 <div class="container px-4 px-lg-5 mt-5">
 	<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -9,14 +10,16 @@
 			<div class="card h-100">
 				<!-- Product image-->
 				<img class="card-img-top"
-					src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+					src="upload/random.png" alt="..." />
 				<!-- Product details-->
 				<div class="card-body p-4">
 					<div class="text-center">
 						<!-- Product name-->
 						<h5 class="fw-bolder">Fancy Product</h5>
 						<!-- Product price-->
-						$40.00 - $80.00
+						<fmt:formatNumber type="currency">1000</fmt:formatNumber>
+						&nbsp;-&nbsp;
+						<fmt:formatNumber type="currency">10000</fmt:formatNumber>
 					</div>
 				</div>
 				<!-- Product actions-->
@@ -30,8 +33,6 @@
 		
 		<!-- 두번째 데이터 -->
 		<c:forEach items="${list }" var="vo">
-		
-		
 		<div class="col mb-5">
 			<div class="card h-100">
 				<c:if test="${vo.sale eq 'Y' }">
@@ -53,15 +54,21 @@
 								<div class="bi-star-fill"></div>
 								</c:forEach>
 							</div>
-						<c:if test="${vo.sale eq 'Y' }">
-							<!-- Product price-->
-							<span class="text-muted text-decoration-line-through">${vo.price }원</span>
-							${vo.salePrice }원
-						</c:if>
-						<c:if test="${vo.sale eq 'N' }">
-							<!-- Product price-->
-							<span>${vo.price }원</span>
-						</c:if>
+						<c:choose>
+							<c:when test="${vo.sale eq 'Y' }">
+								<!-- Product price-->
+								<span class="text-muted text-decoration-line-through">
+								<fmt:formatNumber type="currency" value="${vo.price }"></fmt:formatNumber>
+								</span>&nbsp;
+								<fmt:formatNumber type="currency" value="${vo.salePrice }"></fmt:formatNumber>
+							</c:when>
+							<c:otherwise>
+								<!-- Product price-->
+								<span>
+								<fmt:formatNumber type="currency" value="${vo.price }"></fmt:formatNumber>
+								</span>
+							</c:otherwise>						
+						</c:choose>
 					</div>
 				</div>
 				<!-- Product actions-->

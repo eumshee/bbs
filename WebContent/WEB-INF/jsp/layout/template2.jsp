@@ -15,11 +15,14 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/bootstrap/css/styles.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<script src="${pageContext.request.contextPath }/bootstrap/js/scripts.js"></script>
+  	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">	
   	<style>
     .fakeimg {
       height: 200px;
       background: #aaa;
     }
+    body { font-family: 'Montserrat', sans-serif; }
   </style>
 </head>
 <body>
