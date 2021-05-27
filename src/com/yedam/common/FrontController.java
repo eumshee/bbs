@@ -31,6 +31,7 @@ import com.yedam.notice.web.NoticeListPaging;
 import com.yedam.notice.web.NoticeSearch;
 import com.yedam.notice.web.NoticeUpdate;
 import com.yedam.notice.web.NoticesDelete;
+import com.yedam.product.web.ProductList;
 
 @SuppressWarnings("serial")
 public class FrontController extends HttpServlet {
@@ -39,6 +40,7 @@ public class FrontController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException { // 요청페이지 - 실행컨트롤
 		// 회원
+		map.put("/index.do", new IndexPage());
 		map.put("/main.do", new MainPage());
 		map.put("/memberJoinForm.do", new MemberJoinForm());
 		map.put("/memberJoin.do", new MemberJoin());
@@ -66,6 +68,8 @@ public class FrontController extends HttpServlet {
 		map.put("/bulletinUpdate.do", new BulletinUpdate());
 		map.put("/bulletinDelete.do", new BulletinDelete());
 		
+		// 상품
+		map.put("/productList.do", new ProductList());
 	}
 
 	@Override
