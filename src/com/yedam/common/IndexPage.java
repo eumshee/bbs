@@ -20,7 +20,7 @@ public class IndexPage implements DbCommand {
 		
 		//request.setAttribute("cartCnt", cartCnt);
 		session.setAttribute("cartCnt", cartCnt);
-		
+		  
 		return "common/section.tiles";
 	}
 

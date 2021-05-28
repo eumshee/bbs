@@ -57,7 +57,7 @@
 							<th colspan="3">합계</th>
 							<td>${vo.itemQty }</td>
 							<td></td>
-							<td></td>
+							<td></td> 
 						</tr>
 					</c:if>
 				</c:forEach>

@@ -18,7 +18,7 @@ public class ProductList implements DbCommand {
 		ProductService service = new ProductServiceImpl();
 		List<ProductVO> list = service.productSelectList();
 		request.setAttribute("list", list);
-		
+		  
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		
