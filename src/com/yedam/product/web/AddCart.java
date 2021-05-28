@@ -11,7 +11,6 @@ public class AddCart implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
 		// cart 테이블에 한건 추가(회원아이디, 상품코드, 수량(=1))
 		String id = request.getParameter("id");
 		String itemCode = request.getParameter("itemCode");
@@ -19,12 +18,6 @@ public class AddCart implements DbCommand {
 		
 		ProductServiceImpl service = new ProductServiceImpl();
 		service.addCart(id, itemCode, qty);
-		
-		service = new ProductServiceImpl();
-		int cartCnt = service.getCountCart(id);
-		
-		request.setAttribute("cartCnt", cartCnt);
-		session.setAttribute("cartCnt", cartCnt);
 		
 		return "/productList.do";
 	}
